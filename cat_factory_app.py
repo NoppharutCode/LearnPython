@@ -1,11 +1,14 @@
 import os
 import cat_service
+import subprocess
+
 
 def main():
-    print_header() 
+    # print_header() 
     folder = get_or_create_output_folder()
-    print('Found or created folder: ' + folder)
-    download_cats(folder)
+    # print('Found or created folder: ' + folder)
+    # download_cats(folder)
+    display_cats(folder)
 
 def print_header():
     print('--------------------------')
@@ -24,10 +27,18 @@ def get_or_create_output_folder():
     return full_path
 
 def download_cats(folder):
+    print('Contacting server to download cats...')
     cat_count = 8
     for i in range(1, cat_count+1):
         name = 'lolcat {}'.format(i)
-        cat_service.get_cat(folder, "")
+        print('Downloading cat ' + name)
+        cat_service.get_cat(folder, name)
+    print("Done!!!")
+
+def display_cats(folder):
+    print('Displaying cats in OS window.')
+    print(folder)
+    subprocess.call(['open', folder])
 
 
 if __name__ == "__main__":
